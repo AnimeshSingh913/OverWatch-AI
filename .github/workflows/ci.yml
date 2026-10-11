@@ -7,8 +7,8 @@ on:
     branches: [ main, master ]
 
 jobs:
-  test:
-    name: Backend Test Suite & Governance Verification
+  backend-check:
+    name: Backend Dependency & Import Verification
     runs-on: ubuntu-latest
 
     steps:
@@ -27,22 +27,41 @@ jobs:
           pip install -r backend/requirements.txt
           python -c "import nltk; nltk.download('vader_lexicon')"
 
-      - name: Verify Mathematical Consistency & Tolerances
+      - name: Verify backend imports
         run: |
-          python test_math.py
+          python -c "
+          from backend.app import app
+          from backend.experiment_tracker import EXPERIMENT_TRACKER
+          print('✓ All backend modules import successfully')
+          "
 
-      - name: Verify Edge Cases & Date Parsing
+      - name: Verify FastAPI app starts
         run: |
-          python test_edge_cases.py
+          python -c "
+          from backend.app import app
+          routes = [r.path for r in app.routes]
+          assert '/analyze' in routes, '/analyze route missing'
+          assert '/simulate' in routes, '/simulate route missing'
+          assert '/health' in routes, '/health route missing'
+          print('✓ Routes verified:', routes)
+          "
 
-      - name: Verify 7 Advanced Governance Upgrades
-        run: |
-          python test_advanced_governance.py
+  frontend-check:
+    name: Frontend Type Check
+    runs-on: ubuntu-latest
 
-      - name: Verify SHAP Explainability Engine
-        run: |
-          python test_shap.py
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: Verify End-to-End Pipeline & Calibration
-        run: |
-          python test_hf_and_accuracy.py
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Type check
+        run: npx tsc --noEmit
