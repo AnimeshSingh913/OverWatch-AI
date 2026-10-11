@@ -27,23 +27,17 @@ jobs:
           pip install -r backend/requirements.txt
           python -c "import nltk; nltk.download('vader_lexicon')"
 
-      - name: Verify backend imports
+      - name: Verify backend imports and routes
+        working-directory: backend
         run: |
           python -c "
-          from backend.app import app
-          from backend.experiment_tracker import EXPERIMENT_TRACKER
-          print('✓ All backend modules import successfully')
-          "
-
-      - name: Verify FastAPI app starts
-        run: |
-          python -c "
-          from backend.app import app
-          routes = [r.path for r in app.routes]
+          import app as backend_app
+          from experiment_tracker import EXPERIMENT_TRACKER
+          routes = [r.path for r in backend_app.app.routes]
           assert '/analyze' in routes, '/analyze route missing'
           assert '/simulate' in routes, '/simulate route missing'
           assert '/health' in routes, '/health route missing'
-          print('✓ Routes verified:', routes)
+          print('✓ Imports OK | Routes verified:', routes)
           "
 
   frontend-check:
