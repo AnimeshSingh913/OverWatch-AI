@@ -1,0 +1,18 @@
+services:
+  # ── Backend: FastAPI API (Free Web Service) ──
+  - type: web
+    name: overwatch-ai-api
+    env: python
+    branch: main
+    buildCommand: pip install -r backend/requirements.txt && python -c "import nltk; nltk.download('vader_lexicon')"
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port 10000
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: HF_TOKEN
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+
+

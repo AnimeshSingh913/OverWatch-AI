@@ -1,0 +1,48 @@
+name: CI/CD Pipeline - OverWatch AI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Backend Test Suite & Governance Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          python -c "import nltk; nltk.download('vader_lexicon')"
+
+      - name: Verify Mathematical Consistency & Tolerances
+        run: |
+          python test_math.py
+
+      - name: Verify Edge Cases & Date Parsing
+        run: |
+          python test_edge_cases.py
+
+      - name: Verify 7 Advanced Governance Upgrades
+        run: |
+          python test_advanced_governance.py
+
+      - name: Verify SHAP Explainability Engine
+        run: |
+          python test_shap.py
+
+      - name: Verify End-to-End Pipeline & Calibration
+        run: |
+          python test_hf_and_accuracy.py
