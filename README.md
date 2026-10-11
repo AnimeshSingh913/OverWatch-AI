@@ -1,9 +1,13 @@
 # OverWatch AI — Credit Decision Trust Intelligence
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-over--watch--ai--woad.vercel.app-brightgreen?logo=vercel)](https://over-watch-ai-woad.vercel.app/)
+[![API](https://img.shields.io/badge/Backend%20API-onrender.com-46E3B7?logo=render)](https://overwatch-ai-api.onrender.com/health)
 ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg)
 ![React](https://img.shields.io/badge/React-18-61DAFB.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
+
+**[→ Live App](https://over-watch-ai-woad.vercel.app/) · [→ API Health](https://overwatch-ai-api.onrender.com/health)**
 
 > **OverWatch AI** is an end-to-end **human–AI trust monitoring system for credit and lending teams**.
 > It analyzes loan officer overrides and underwriter notes to quantify trust,
