@@ -5,7 +5,7 @@
 ![React](https://img.shields.io/badge/React-18-61DAFB.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-**[→ Live App](https://over-watch-ai-woad.vercel.app/) · [→ API Health](https://overwatch-ai-api.onrender.com/health)**
+**[→ Live App](https://over-watch-ai-woad.vercel.app/) 
 
 > **OverWatch AI** is an end-to-end **human–AI trust monitoring system for credit and lending teams**.
 > It analyzes loan officer overrides and underwriter notes to quantify trust,
